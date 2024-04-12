@@ -2,7 +2,7 @@ import { createClient } from "@liveblocks/client";
 import { createRoomContext, createLiveblocksContext } from "@liveblocks/react";
   
 const client = createClient({
-   publicApiKey: "pk_dev_sX5HVj2BuMAKhu13r70Dl3QMJHWGlQ1uWhkZTdabN7X8faEBQVbD77_mlBONFaGZ",
+  authEndpoint: "/api/liveblocks-auth",
   async resolveUsers({ userIds }) {
     // Used only for Comments and Notifications. Return a list of user information
     // retrieved from `userIds`. This info is used in comments, mentions etc.
@@ -66,8 +66,11 @@ type Storage = {
 // provided by your own custom auth back end (if used). Useful for data that
 // will not change during a session, like a user's name or avatar.
 type UserMeta = {
-  // id?: string,  // Accessible through `user.id`
-  // info?: Json,  // Accessible through `user.info`
+  id?: string; 
+  info?: { //become an object
+    name?: string;
+    picture?: string;
+  };
 };
 
 // Optionally, the type of custom events broadcast and listened to in this
