@@ -1,8 +1,13 @@
 "use client";
 
+
+import { useState } from "react";
+import { useHistory, useCanUndo, useCanRedo } from "@/liveblocks.config";
+
 import { Info } from "./info";
 import { Toolbar } from "./toolbar";
 import { Participants } from "./participants";
+import { CanvasMode, CanvasState } from "@/types/canvas";
 
 
 interface CanvasProps {
@@ -12,14 +17,28 @@ interface CanvasProps {
 export const Canvas = ({
     boardId,
 }: CanvasProps) => {
+    const [ canvasState, setCanvasState] = useState<CanvasState>({
+        mode: CanvasMode.None, 
+    });
+
+    const history = useHistory();
+    const canUndo = useCanUndo();
+    const canRedo = useCanRedo();
+
     return (
         <main 
             className="h-full w-full relative bg-neutral-100 touch-none"
             >
                 <Info boardId={boardId}/>
                 <Participants />
-                <Toolbar />
-                TODO: Connect to liveblocks to allows user to join the board.
+                <Toolbar 
+                    canvasState={canvasState}
+                    setCanvasState={setCanvasState}
+                    canRedo={canRedo}
+                    canUndo={canUndo}
+                    undo={history.undo}
+                    redo={history.redo}
+                    />
         </main>
     );
 };
