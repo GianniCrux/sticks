@@ -8,7 +8,7 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 //The same convention method as creating route side pages but this time we're creating a route.ts instead of page.tsx  
 const liveblocks = new Liveblocks({
-    secret: "sk_dev_uHvStC_Rq_foZylIBqLPXUkKzvu_gVt149u_DX4gk5CZed1akoijAqiqliIKGJKH",
+    secret: process.env.LIVEBLOCKS_SECRET_KEY!,
 });
 
 export async function POST(request: Request) { 
